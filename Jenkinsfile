@@ -1,4 +1,4 @@
-node('master') {
+node('slave01') {
   ansiColor('xterm') {
 	stage ('checkout code'){
 		checkout scm
@@ -19,11 +19,7 @@ node('master') {
 	}
 	
 	stage ('Deployment'){
-		ansiblePlaybook( 
-        		playbook: 'deploy.yml',
-        		inventory: '/etc/ansible/hosts', 
-			extras: '--become',
-        		colorized: true) 
+ 
 	}
 	stage ('Notification'){
 		//slackSend color: 'good', message: 'Deployment Sucessful'
