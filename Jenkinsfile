@@ -1,4 +1,4 @@
-node('slave01') {
+node('slave02') {
   ansiColor('xterm') {
 	stage ('checkout code'){
 		checkout scm
