@@ -1,9 +1,9 @@
-node('slave2') {
+node('master') {
   ansiColor('xterm') {
 	stage ('checkout code'){
 		checkout scm
 	}
-	
+	node('slave01') {
 	stage ('Build'){
 		sh "mvn clean install -Dmaven.test.skip=true"
 	}
@@ -13,10 +13,13 @@ node('slave2') {
 	stage ('Test Cases Execution'){
 		sh "mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install -Pcoverage-per-test"
 	}
+	}
+	  node('slave2') {
 
 	stage ('Archive Artifacts'){
 		archiveArtifacts artifacts: 'target/*.war'
 	}
+	  }
 	
 	stage ('Deployment'){
  
